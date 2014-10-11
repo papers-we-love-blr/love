@@ -1,0 +1,10 @@
+
+* Proposed schedules
+
+** 25th October "Tackling the Awkward Squad - SPJ" by Jaseem Abid
+
+   Ref http://research.microsoft.com/en-us/um/people/simonpj/papers/marktoberdorf/
+
+   Tackling the Awkward Squad: monadic input/output, concurrency, exceptions,
+   and foreign-language calls in Haskell. Simon discusses doing impure
+   computations in haskell with Monads
