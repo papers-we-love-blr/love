@@ -8,11 +8,4 @@ http://www.meetup.com/Papers-we-love-Bangalore/
 
 ### "Tackling the Awkward Squad - SPJ"
 
-Proposed by Jaseem Abid
-Tentative Date: 25th October
-
-Ref http://research.microsoft.com/en-us/um/people/simonpj/papers/marktoberdorf/
-
-Tackling the Awkward Squad: monadic input/output, concurrency, exceptions, and
-foreign-language calls in Haskell. Simon discusses doing impure computations in
-haskell with Monads
+No papers we love meeting scheduled so far, but hopefully you will love the [next haskell meetup](http://www.meetup.com/The-Bangalore-Haskell-User-Group/events/212831232/).
