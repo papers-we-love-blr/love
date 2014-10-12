@@ -1,4 +1,4 @@
-# Koen Claessen and John Hughes. 2011. QuickCheck: a lightweight tool for random testing of Haskell programs.
+# Koen Claessen and John Hughes. 2011. QuickCheck: a lightweight tool for random testing of Haskell programs
 
 Presented by [Naren Sundar][presenter]
 

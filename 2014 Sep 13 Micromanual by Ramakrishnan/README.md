@@ -1,6 +1,6 @@
-# John McCarthy. 1978. A micro-manual for LISP - not the whole truth.
+# John McCarthy. 1978. A micro-manual for LISP - not the whole truth
 
-Presented by [Ramakrishnan Muthukrishnan][presenter].
+Presented by [Ramakrishnan Muthukrishnan][presenter]
 
 ## Links
 - [Paper][paper]
