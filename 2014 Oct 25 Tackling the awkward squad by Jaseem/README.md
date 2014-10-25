@@ -7,7 +7,7 @@ Presented by [Jaseem Abid][presenter]
 - [Slides and Code][slides]
 - [Meetup Page][meetup]
 
-[presenter]: [https://twitter.com/jaseemabid/](@jaseemabid) | [https://github.com/jaseemabid/](GH:jaseemabid)
-[paper]: [./mark.pdf](Paper(PDF))
-[slides]: [./Marktoberdorf.pdf](Slides(PDF))
+[presenter]: https://twitter.com/jaseemabid/
+[paper]: ./mark.pdf
+[slides]: ./Marktoberdorf.pdf
 [meetup]: http://www.meetup.com/The-Bangalore-Haskell-User-Group/events/212831232/
