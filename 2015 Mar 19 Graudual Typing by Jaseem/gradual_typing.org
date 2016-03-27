@@ -1,0 +1,279 @@
+* Gradual Typing for Functional Languags
+
+  Jeremy G. Siek, IUB, Walid Taha, Rice University
+
+* What are we talking about ?
+
+  We define the static and dynamic semantics of a λ calculus with optional type annotations and we prove that its type system is sound with respect to the simply typed λ calculus for fully annotated terms.
+
+* Eh?
+
+  Languages that literally provide static and dynamic typing in the same program, with the programmer controlling the degree of static checking by annotating function parameters with types, or not.
+
+* Quote
+
+  Gradual Typing
+
+* Prelude
+
+  - Type Systems
+  - Lambda Calculus, Untyped & Simply Typed
+  - Scheme
+  - PL Notation
+
+* What will be covered today?
+
+  - Gradual typing
+  - Current state of the implementations
+
+* Problem statement
+
+  Static and dynamic type systems have well known strengths and weaknesses, and each is better suited for different programming tasks.
+
+  We can do better
+
+* Figure
+
+    |---------+------------+----------------------|
+    |         | Weak       | Strong               |
+    |---------+------------+----------------------|
+    | Static  | Go, Java   | Haskell              |
+    | Dynamic | JavaScript | Scheme, Python |
+    |---------+------------+----------------------|
+
+* Dynamic and Weak languages
+
+  #+BEGIN_SRC shell
+    > 42 + "life"
+    '42life'
+  #+END_SRC
+
+* Dynamic but Strong
+
+  #+BEGIN_SRC shell
+    Python 2.7.11 (default, Jan 12 2016, 12:18:17)
+    [GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> 42 + "life"
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    TypeError: unsupported operand type(s) for +: 'int' and 'str'
+    >>>
+  #+END_SRC
+
+* Figure
+  The Next 700 Programming Languages
+  P. J. Landin
+  http://www.inf.ed.ac.uk/teaching/courses/epl/Landin66.pdf
+
+* Lines are blurring
+  And maybe that is a good thing
+
+* Rant
+  There is absolutely no advantage in using a dynamically typed language if verbosity and friction is removed from statically typed languages.
+
+* Figure
+  Static Typing Where Possible, Dynamic Typing When Needed
+  https://www.ics.uci.edu/~lopes/teaching/inf212W12/readings/rdl04meijer.pdf
+
+* Optional vs Gradual
+  - Optional type annotations that are used to improve run time performance but not to increase the amount of static checking.
+
+  - In a gradual type system, the type system is complete.
+
+  - If provided all type annotations, the program cannot fail with static type errors.
+
+* Figure
+
+  Figure 1. An example of gradual typing: an interpreter with varying amounts of type annotations.
+
+* Contributions
+
+  - A formal type system that supports gradual typing for functional languages.
+  - The flexibility of dynamically typed languages when type annotations are omitted & benefits of static checking when function parameters are annotated.
+
+* λ? 's picture
+
+* λ?
+
+* λ
+
+* λ→
+
+* Theorem 1
+
+  When applied to fully annotated terms, λ? is equivalent to λ→
+
+  This property ensures that for fully annotated programs all type errors are
+  caught at compile time.
+
+* Run time semantics
+
+  We define the runtime semantics of λ? via a translation to λ→ with explicit casts.
+
+* λ<τ>
+
+* Lemma 4
+
+  When applied to fully annotated terms, the translation does not insert casts, so the semantics exactly matches that of the simply typed calculus.
+
+* Lemma 3
+
+  The translation preserves typing.
+
+* Lemma 8
+
+  λ<τ> is type safe.
+
+* and therefore  λ? is type safe
+
+* Theorem 2
+
+  If evaluation terminates, the result is either a value of the expected type or a cast error, but never a type error.
+
+* What really is λ?
+
+  The gradually typed λ calculus, λ?, is the λ→ extended with a type ? to represent dynamic types.
+
+* Figure
+
+  syntax.png
+
+* Syntax of e ∈ λ?
+
+  - A procedure without a parameter type annotation is syntactic sugar for a procedure with parameter type ?
+  - All unknown parts are marked with ?
+  - The job of the static type system is to reject programs that have inconsistencies in the known parts of types.
+
+* Example #1
+
+  ((λ (x : number) (succ x)) #t) ;; reject
+  ((λ (x) (succ x)) #t) ;; accept
+
+* Accept or not ?
+
+    map : (number → number) * number list → number list
+    (map (λ (x) (succ x)) (list 1 2 3))
+
+* Figure
+
+  consistency.png
+
+* Note
+
+  Reflexive, Symmetric but not Transitive
+
+* Figure
+
+  grad.png
+
+* Crash Course on Notation in Programming Language Theory
+
+   Δ        → Type env with constants
+   Γ        → Type env, λ :: e -> τ | ⟂
+   Γ\x      → Type env sans x
+   Γ,x:Γ    → Type env with x
+   Γ(x → σ) → Γ(x → σ)
+
+   Ref http://siek.blogspot.in/2012/07/crash-course-on-notation-in-programming.html
+
+* Relation to the untyped λ calculus
+
+  (succ "hi")
+
+* Relation to the simply typed λ calculus
+
+* Proof sketch
+
+  Simply typed λ calculus minus ?
+
+* Quote
+
+  A direct consequence of this equivalence is that our gradual type system catches the same static errors as the type system for λ→
+
+* Quasi-Static typing
+
+  - Standard sub typing relation <:
+  - Dynamic type Ω
+  - Transitive types → Plausibility checking
+  - Upcast σ to Ω followed by downcast to τ
+  - Symmetric consistency vs anti symmetric subtyping
+
+* Welcome to the real world
+  ML style references
+
+* Figure
+  references.png
+
+* Run time semantics
+
+  Define a cast insertion translation from λ? to an intermediate language with explicit casts, λ<τ>
+
+  Call by value operational semantics for λ<τ>
+
+* Figure
+
+  syntax-ir.png
+
+* Cast
+  Γ⊢e ⇒ e':τ
+
+* Figure
+  cast1.png
+
+* Figure
+  cast2.png
+
+* Type system for IR λ<τ>
+
+* Figure
+
+  tcast.png
+
+* Quote
+
+  When applied to terms of λ→, the translation is the identity function, i.e, no
+  casts are inserted.
+
+* Run time semantics of λ<τ>
+
+  The result is either a value or an error, where values are either a simple value (variables, constants, functions, and locations) or a simple value enclosed in a single cast, which serves as a syntacical representation of boxed values.
+
+* Figure
+
+  err.png
+
+* Example
+
+  ((λ (x) (succ x)) #t)
+  ((λ (x : ?) (succ <number>x)) <?>#t)
+  (succ <number><?>#t)
+
+  (ECSTE) => CastError
+
+* Evaluation rules
+
+* Type safety
+
+* Related work
+
+* Conclusion
+
+* The Ins and Outs of Gradual Type Inference
+  https://www.cs.umd.edu/~avik/papers/iogti.pdf
+  http://blog.jooq.org/2014/12/11/the-inconvenient-truth-about-dynamic-vs-static-typing/
+  http://sitr.us/2014/11/21/flow-is-the-javascript-type-checker-i-have-been-waiting-for.html
+
+* Is Sound Gradual Typing Dead?
+
+  http://www.ccs.neu.edu/racket/pubs/popl16-tfgnvf.pdf
+  [[http://blog.acolyer.org/2016/02/05/is-sound-gradual-typing-dead/][Is Sound Gradual Typing Dead? | the morning paper]]
+  [[https://www.reddit.com/r/programming/comments/44cqbm/is_sound_gradual_typing_dead/][Is Sound Gradual Typing Dead? | /r/programming]]
+
+* References
+
+  [[http://wphomes.soic.indiana.edu/jsiek/what-is-gradual-typing/][What is Gradual Typing | Jeremy Siek]] | [[https://news.ycombinator.com/item?id=8595116][HN]]
+  [[http://samth.github.io/gradual-typing-bib/][Gradual Typing Bibliography]]
+  [[http://lambda-the-ultimate.org/node/5292][Progress on Gradual Typing | Lambda the Ultimate]]
+
+* End
